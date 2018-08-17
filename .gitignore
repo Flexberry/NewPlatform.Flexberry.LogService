@@ -1,3 +1,6 @@
-/packages/
-*/bin/
-*/obj/
+**/packages/
+**/bin/
+**/obj/
+**/.vs/
+**/FakesAssemblies/
+*.coverage
