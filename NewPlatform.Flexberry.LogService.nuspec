@@ -13,6 +13,7 @@
     <description>Flexberry LogService package.</description>
     <releaseNotes>
       1) log4net upgraded to 2.0.8.
+      2) Utc timestamp layout for default appender.
     </releaseNotes>
     <copyright>Copyright New Platform Ltd 2015</copyright>
     <tags>log4net log logger Flexberry</tags>
