@@ -1,2 +1,5 @@
 language: csharp
-solution: LogService.sln
+solution: NewPlatform.Flexberry.LogService.LogService.sln
+script:
+  - msbuild /p:Configuration=Debug "NewPlatform.Flexberry.LogService.LogService.sln"
+  - mono ./packages/xunit.runner.console.2.4.1/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.LogService.Tests/bin/Debug/NewPlatform.Flexberry.LogService.Tests.dll

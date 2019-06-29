@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.LogService.snk</AssemblyOriginatorKeyFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Copyright>Copyright New Platform Ltd 2019</Copyright>
+    <Company>New Platform Ltd</Company>
+    <Product>Flexberry PLATFORM</Product>
+    <Authors>New Platform Ltd</Authors>
+    <Version>2.0.0-alpha03</Version>
+    <PackageReleaseNotes>1. .NET Standard implementation</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/Flexberry/NewPlatform.Flexberry.LogService</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://flexberry.net</PackageProjectUrl>
+    <PackageIconUrl>https://flexberry.net/img/logo-color.png</PackageIconUrl>
+    <PackageTags>logging</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+  </ItemGroup>
+
+</Project>

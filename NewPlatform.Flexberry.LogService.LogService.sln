@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29020.237
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlatform.Flexberry.LogService", "NewPlatform.Flexberry.LogService\NewPlatform.Flexberry.LogService.csproj", "{3331FFE5-8976-4F60-AA86-A9DF20C47D79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.LogService.Tests", "NewPlatform.Flexberry.LogService.Tests\NewPlatform.Flexberry.LogService.Tests.csproj", "{2ECDC2A0-C124-45F9-8FFB-78D216C9374E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3331FFE5-8976-4F60-AA86-A9DF20C47D79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3331FFE5-8976-4F60-AA86-A9DF20C47D79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3331FFE5-8976-4F60-AA86-A9DF20C47D79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3331FFE5-8976-4F60-AA86-A9DF20C47D79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ECDC2A0-C124-45F9-8FFB-78D216C9374E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ECDC2A0-C124-45F9-8FFB-78D216C9374E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ECDC2A0-C124-45F9-8FFB-78D216C9374E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ECDC2A0-C124-45F9-8FFB-78D216C9374E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A7E8AD97-3D61-4A7D-9D32-7BC57A1332AD}
+	EndGlobalSection
+EndGlobal

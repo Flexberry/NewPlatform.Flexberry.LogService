@@ -5,8 +5,6 @@
     using System.Configuration;
     using System.Security.Cryptography;
     using System.Text;
-    using System.Web;
-    using System.Web.Configuration;
 
     using log4net.Appender;
 
@@ -73,17 +71,11 @@
         /// </exception>
         private string GetConnectionStringFromConfiguration()
         {
-            bool isWebEnvironment = HttpContext.Current != null;
-
             // Конфигурационная секция appSettings.
-            NameValueCollection appSettings = isWebEnvironment 
-                ? WebConfigurationManager.AppSettings 
-                : ConfigurationManager.AppSettings;
+            NameValueCollection appSettings = ConfigurationManager.AppSettings;
 
             // Конфигурационная секция connectionStrings.
-            ConnectionStringSettingsCollection appConnectionStrings = isWebEnvironment 
-                ? WebConfigurationManager.ConnectionStrings 
-                : ConfigurationManager.ConnectionStrings;
+            ConnectionStringSettingsCollection appConnectionStrings = ConfigurationManager.ConnectionStrings;
 
             // Имя строки соединения в конфигурационной секции connectionStrings.
             string connectionStringName = string.IsNullOrEmpty(ConnectionStringName)
@@ -110,7 +102,7 @@
                 throw new ConfigurationErrorsException(
                     "Не удалось найти строку соединения в конфигурационном файле приложения. " +
                     "Удостоверьтесь, что в секции \"appSettings\" задана настройка \"DefaultConnectionStringName\"," +
-                    " и ей соответствует корректная строка соединения в секции \"connectionStrings\", " + 
+                    " и ей соответствует корректная строка соединения в секции \"connectionStrings\", " +
                     "либо удостоверьтесь, что в секции \"appSettings\" корректно задана настройка \"CustomizationStrings\"");
             }
 
@@ -180,11 +172,11 @@
         private static TripleDESCryptoServiceProvider GetCryptographicServiceProvider(bool useHashing)
         {
             var cryptographicServiceProvider = new TripleDESCryptoServiceProvider
-                                                   {
-                                                        Key = GetCryptographicKeyBytes(useHashing),
-                                                        Mode = CipherMode.ECB,
-                                                        Padding = PaddingMode.PKCS7
-                                                   };
+            {
+                Key = GetCryptographicKeyBytes(useHashing),
+                Mode = CipherMode.ECB,
+                Padding = PaddingMode.PKCS7
+            };
 
             return cryptographicServiceProvider;
         }
