@@ -1,0 +1,25 @@
+﻿<?xml version="1.0"?>
+
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+
+  <!--Удаляем секцию log4net, если в ней сохранены настройки по умолчанию.-->
+  <appender xdt:Locator="XPath(/configuration/log4net/appender[
+                                   @name=&quot;AdoNetAppender&quot; and @type=&quot;ICSSoft.STORMNET.CustomAdoNetAppender&quot; and 
+                                   not(not(connectionType[@value=&quot;System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089&quot;])) and 
+                                   not(not(ConnectionStringName[@value=&quot;DefConnStr&quot;])) and 
+                                   not(not(commandText[@value=&quot;INSERT INTO [ApplicationLog] ([primaryKey],[Timestamp],[ThreadName],[Category],[ProcessName],[Message],[FormattedMessage]) VALUES (NEWID(), @log_date, @thread, @log_level, @logger, @message, @exception)&quot;]))
+                               ])" xdt:Transform="RemoveAll" />
+
+  <!--Удаляем ссылки на AdoNetAppender, если его больше нет в секции log4net.-->
+  <appender-ref xdt:Locator="XPath(/configuration/log4net[not(appender[@name=&quot;AdoNetAppender&quot;])]/root/appender-ref[@ref=&quot;AdoNetAppender&quot;])" xdt:Transform="RemoveAll" />
+  
+  <!--Удаляем элемент root, если в нем ничего нет.-->
+  <root xdt:Locator="XPath(/configuration/log4net/root[not(level[@value!=&quot;DEBUG&quot;]) and not(appender-ref)])" xdt:Transform="RemoveAll" />
+
+  <!--Удаляем секцию log4net, если она пуста.-->
+  <log4net xdt:Locator="Condition(not(*))" xdt:Transform="RemoveAll" />
+  
+  <!--Удаляем регистрацию секции log4net, если самой секции больше нет.-->
+  <section xdt:Locator="XPath(/configuration/configSections/section[@name=&quot;log4net&quot; and not(/configuration/log4net)])" xdt:Transform="RemoveAll" />
+
+</configuration>
