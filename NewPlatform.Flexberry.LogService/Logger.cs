@@ -12,7 +12,7 @@
         /// <summary>
         /// Собственно логгер (log4net).
         /// </summary>
-        public static ILog Log = LogManager.GetLogger("CASEBERRY", "CASEBERRY");
+        public static ILog Log = LogManager.GetLogger("Flexberry", "Flexberry");
 
         #region Обёртка для Log.Error
 

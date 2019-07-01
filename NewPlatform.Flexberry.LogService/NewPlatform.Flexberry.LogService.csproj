@@ -6,14 +6,18 @@
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.LogService.snk</AssemblyOriginatorKeyFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Copyright>New Platform Ltd., 2019</Copyright>
-    <Company>New Platform Ltd.</Company>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Copyright>Copyright New Platform Ltd 2019</Copyright>
+    <Company>New Platform Ltd</Company>
     <Product>Flexberry PLATFORM</Product>
-    <Authors>New Platform Ltd.</Authors>
+    <Authors>New Platform Ltd</Authors>
     <Version>2.0.0-alpha01</Version>
     <PackageReleaseNotes>1. .NET Standard implementation</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/Flexberry/NewPlatform.Flexberry.LogService</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://flexberry.net</PackageProjectUrl>
+    <PackageIconUrl>https://flexberry.net/img/logo-color.png</PackageIconUrl>
+    <PackageTags>logging</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
