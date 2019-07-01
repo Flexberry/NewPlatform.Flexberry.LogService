@@ -6,7 +6,7 @@
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.LogService.snk</AssemblyOriginatorKeyFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Copyright>Copyright New Platform Ltd 2019</Copyright>
     <Company>New Platform Ltd</Company>
     <Product>Flexberry PLATFORM</Product>
