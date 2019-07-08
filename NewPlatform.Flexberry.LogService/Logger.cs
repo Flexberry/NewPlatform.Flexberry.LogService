@@ -1,7 +1,6 @@
 ﻿namespace ICSSoft.STORMNET
 {
     using System;
-
     using log4net;
 
     /// <summary>
@@ -12,7 +11,7 @@
         /// <summary>
         /// Собственно логгер (log4net).
         /// </summary>
-        public static ILog Log = LogManager.GetLogger("CASEBERRY", "CASEBERRY");
+        public static ILog Log = LogManager.GetLogger(typeof(LogService));
 
         #region Обёртка для Log.Error
 
