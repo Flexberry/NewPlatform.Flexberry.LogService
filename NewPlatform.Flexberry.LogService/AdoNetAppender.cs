@@ -18,7 +18,7 @@
 #endregion
 
 // SSCLI 1.0 has no support for ADO.NET
-#if !SSCLI
+#if NETSTANDARD
 
 using System;
 using System.Collections;
@@ -1266,4 +1266,4 @@ namespace log4net.Appender
 	}
 }
 
-#endif // !SSCLI
+#endif // !NETSTANDARD
