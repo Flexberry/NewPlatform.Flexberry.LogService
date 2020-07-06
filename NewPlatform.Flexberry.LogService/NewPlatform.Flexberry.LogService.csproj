@@ -1,28 +1,69 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.LogService.snk</AssemblyOriginatorKeyFile>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Description>Flexberry Logging package.</Description>
+    <Title>Flexberry LogService</Title>
+    <Authors>New Platform Ltd</Authors>
     <Copyright>Copyright New Platform Ltd 2019</Copyright>
     <Company>New Platform Ltd</Company>
+    <PackageTags>Logging Flexberry</PackageTags>
+    <Version>2.0.0-beta01</Version>
     <Product>Flexberry PLATFORM</Product>
-    <Authors>New Platform Ltd</Authors>
-    <Version>2.0.0-alpha03</Version>
-    <PackageReleaseNotes>1. .NET Standard implementation</PackageReleaseNotes>
-    <RepositoryUrl>https://github.com/Flexberry/NewPlatform.Flexberry.LogService</RepositoryUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageId>NewPlatform.Flexberry.LogService</PackageId>
     <PackageProjectUrl>https://flexberry.net</PackageProjectUrl>
     <PackageIconUrl>https://flexberry.net/img/logo-color.png</PackageIconUrl>
-    <PackageTags>logging</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>git://github.com/Flexberry/NewPlatform.Flexberry.LogService</RepositoryUrl>
+    <PackageReleaseNotes>See https://github.com/Flexberry/NewPlatform.Flexberry.LogService/blob/master/CHANGELOG.md </PackageReleaseNotes>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+
+    <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
+    <Configurations>Debug;Release</Configurations>
+    <LangVersion>7.1</LangVersion>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.LogService.snk</AssemblyOriginatorKeyFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\NewPlatform.Flexberry.Caching.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' != 'netstandard2.0' ">
+    <DefineConstants>$(DefineConstants);NETFRAMEWORK</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.MSBuild" Version="6.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.8" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' != 'netstandard2.0' ">
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="StyleCop.Cache" />
   </ItemGroup>
 
 </Project>

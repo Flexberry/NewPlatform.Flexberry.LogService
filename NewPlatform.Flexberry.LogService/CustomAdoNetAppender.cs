@@ -9,10 +9,10 @@
     using log4net.Appender;
 
     /// <summary>
-    /// Log4net аппендер для записи сообщений лога в БД. 
+    /// Log4net аппендер для записи сообщений лога в БД.
     /// </summary>
     /// <remarks>
-    /// Наследуется от стандартного <see cref="AdoNetAppender"/> сохраняя всю функциональность родителя, 
+    /// Наследуется от стандартного <see cref="AdoNetAppender"/> сохраняя всю функциональность родителя,
     /// но переопределяет логику получения строки соединения.
     /// </remarks>
     public class CustomAdoNetAppender : AdoNetAppender
