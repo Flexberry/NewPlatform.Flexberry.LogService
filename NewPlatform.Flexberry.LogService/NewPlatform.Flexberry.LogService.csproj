@@ -18,12 +18,12 @@
     <PackageReleaseNotes>See https://github.com/Flexberry/NewPlatform.Flexberry.LogService/blob/master/CHANGELOG.md </PackageReleaseNotes>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 
-    <TargetFrameworks>net35;net40;net45;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
     <Configurations>Debug;Release</Configurations>
     <LangVersion>7.1</LangVersion>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.LogService.snk</AssemblyOriginatorKeyFile>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\NewPlatform.Flexberry.Caching.xml</DocumentationFile>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\NewPlatform.Flexberry.LogService.xml</DocumentationFile>
     <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
@@ -63,7 +63,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="content\config.install.xdt" />
+    <None Remove="content\config.uninstall.xdt" />
     <None Remove="StyleCop.Cache" />
+  </ItemGroup>
+
+  <ItemGroup Label="Packaging">
+    <Content Include="content\config.install.xdt" PackagePath="content\app.config.install.xdt;content\web.config.install.xdt" />
+    <Content Include="content\config.uninstall.xdt" PackagePath="content\app.config.uninstall.xdt;content\web.config.uninstall.xdt" />
   </ItemGroup>
 
 </Project>
