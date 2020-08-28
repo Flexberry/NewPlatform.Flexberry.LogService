@@ -13,7 +13,7 @@
 
   <!--Вставка информации о секции конфигурации.-->
   <configSections xdt:Locator="Condition(not(section[@name=&quot;log4net&quot;]))">
-    <section name="log4net" type="System.Configuration.IgnoreSectionHandler" xdt:Transform="Insert" />
+    <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" xdt:Transform="Insert" />
   </configSections>
 
   <!--Если узел configSections уже был до нас, то их будет больше одного, и нам нужно удалить лишние (вставленные нами заведомо располагаются после ранее присутствующего,
@@ -27,7 +27,7 @@
 
   <!--Вставляем аппендер по умолчанию в секцию, где нет аппендеров.-->
   <log4net xdt:Locator="Condition(not(appender[@name=&quot;AdoNetAppender&quot;]))">
-    <appender xdt:Transform="Insert" name="AdoNetAppender" type="ICSSoft.STORMNET.CustomAdoNetAppender">
+    <appender xdt:Transform="Insert" name="AdoNetAppender" type="ICSSoft.STORMNET.CustomAdoNetAppender, NewPlatform.Flexberry.LogService">
       <bufferSize value="0" />
       <connectionType
         value="System.Data.SqlClient.SqlConnection, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
