@@ -6,7 +6,7 @@
     /// <summary>
     /// Общий сервис для ведения логов (смотри документацию по log4net: http://logging.apache.org/log4net/).
     /// </summary>
-    public class LogService
+    public static class LogService
     {
         /// <summary>
         /// Собственно логгер (log4net).
