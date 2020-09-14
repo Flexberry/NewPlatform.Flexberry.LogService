@@ -22,16 +22,16 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Debug-Net35\LogService.dll" target="lib\net35\LogService.dll" />
-    <file src="Debug-Net35\LogService.XML" target="lib\net35\LogService.XML" />
-    <file src="Debug-Net40\LogService.dll" target="lib\net40\LogService.dll" />
-    <file src="Debug-Net40\LogService.XML" target="lib\net40\LogService.XML" />
-    <file src="Debug-Net45\LogService.dll" target="lib\net45\LogService.dll" />
-    <file src="Debug-Net45\LogService.XML" target="lib\net45\LogService.XML" />
+    <file src="Release-Net35\LogService.dll" target="lib\net35\LogService.dll" />
+    <file src="Release-Net35\LogService.XML" target="lib\net35\LogService.XML" />
+    <file src="Release-Net40\LogService.dll" target="lib\net40\LogService.dll" />
+    <file src="Release-Net40\LogService.XML" target="lib\net40\LogService.XML" />
+    <file src="Release-Net45\LogService.dll" target="lib\net45\LogService.dll" />
+    <file src="Release-Net45\LogService.XML" target="lib\net45\LogService.XML" />
 
-    <file src="Debug-Net35\config.install.xdt" target="content\app.config.install.xdt" />
-    <file src="Debug-Net35\config.install.xdt" target="content\web.config.install.xdt" />
-    <file src="Debug-Net35\config.uninstall.xdt" target="content\app.config.uninstall.xdt" />
-    <file src="Debug-Net35\config.uninstall.xdt" target="content\web.config.uninstall.xdt" />
+    <file src="Release-Net35\config.install.xdt" target="content\app.config.install.xdt" />
+    <file src="Release-Net35\config.install.xdt" target="content\web.config.install.xdt" />
+    <file src="Release-Net35\config.uninstall.xdt" target="content\app.config.uninstall.xdt" />
+    <file src="Release-Net35\config.uninstall.xdt" target="content\web.config.uninstall.xdt" />
   </files>
 </package>
