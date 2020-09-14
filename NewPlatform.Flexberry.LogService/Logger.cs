@@ -1,18 +1,17 @@
 ﻿namespace ICSSoft.STORMNET
 {
     using System;
-
     using log4net;
 
     /// <summary>
     /// Общий сервис для ведения логов (смотри документацию по log4net: http://logging.apache.org/log4net/).
     /// </summary>
-    public class LogService
+    public static class LogService
     {
         /// <summary>
         /// Собственно логгер (log4net).
         /// </summary>
-        public static ILog Log = LogManager.GetLogger("CASEBERRY");
+        public static ILog Log = LogManager.GetLogger(typeof(LogService));
 
         #region Обёртка для Log.Error
 
