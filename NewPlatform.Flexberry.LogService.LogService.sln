@@ -5,7 +5,16 @@ VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlatform.Flexberry.LogService", "NewPlatform.Flexberry.LogService\NewPlatform.Flexberry.LogService.csproj", "{3331FFE5-8976-4F60-AA86-A9DF20C47D79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.LogService.Tests", "NewPlatform.Flexberry.LogService.Tests\NewPlatform.Flexberry.LogService.Tests.csproj", "{2ECDC2A0-C124-45F9-8FFB-78D216C9374E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlatform.Flexberry.LogService.Tests", "NewPlatform.Flexberry.LogService.Tests\NewPlatform.Flexberry.LogService.Tests.csproj", "{2ECDC2A0-C124-45F9-8FFB-78D216C9374E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Source", "Open Source", "{BBA9069B-4291-4AA2-8743-A233C365F93B}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		.travis.yml = .travis.yml
+		CHANGELOG.md = CHANGELOG.md
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
