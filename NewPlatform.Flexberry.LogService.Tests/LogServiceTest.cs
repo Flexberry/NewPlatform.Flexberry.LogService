@@ -1,16 +1,21 @@
 ﻿namespace NewPlatform.Flexberry.LogService.Tests
 {
+    using ICSSoft.STORMNET;
+
     using Xunit;
 
+    /// <summary>
+    /// Тесты <see cref="LogService" />.
+    /// </summary>
     public class LogServiceTest
     {
         /// <summary>
-        /// Test for <see cref="ICSSoft.STORMNET.LogService.LogError"/> method.
+        /// Test for <see cref="LogService.LogError(object)" /> method.
         /// </summary>
         [Fact]
-        void LogErrorTest()
+        public void LogErrorTest()
         {
-            ICSSoft.STORMNET.LogService.LogError("Bums");
+            LogService.LogError("Bums");
         }
     }
 }

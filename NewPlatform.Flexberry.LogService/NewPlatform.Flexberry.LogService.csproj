@@ -3,57 +3,28 @@
   <PropertyGroup>
     <Description>Flexberry Logging package.</Description>
     <Title>Flexberry LogService</Title>
-    <Authors>New Platform Ltd</Authors>
-    <Copyright>Copyright New Platform Ltd 2021</Copyright>
-    <Company>New Platform Ltd</Company>
     <PackageTags>Logging Flexberry</PackageTags>
-    <VersionPrefix>2.0.0</VersionPrefix>
-    <VersionSuffix></VersionSuffix>
     <Product>Flexberry PLATFORM</Product>
     <PackageId>NewPlatform.Flexberry.LogService</PackageId>
-    <PackageProjectUrl>https://flexberry.net</PackageProjectUrl>
-    <PackageIconUrl>https://flexberry.net/img/logo-color.png</PackageIconUrl>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>git://github.com/Flexberry/NewPlatform.Flexberry.LogService</RepositoryUrl>
-    <PackageReleaseNotes>See https://github.com/Flexberry/NewPlatform.Flexberry.LogService/blob/master/CHANGELOG.md </PackageReleaseNotes>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup>
     <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
-    <Configurations>Debug;Release</Configurations>
-    <LangVersion>latest</LangVersion>
     <RootNamespace>ICSSoft.STORMNET</RootNamespace>
     <AssemblyName>NewPlatform.Flexberry.LogService</AssemblyName>
-    <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.LogService.snk</AssemblyOriginatorKeyFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-    <CodeAnalysisRuleSet>..\Flexberry.ruleset</CodeAnalysisRuleSet>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)'=='Release'">
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-  </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.12" />
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="log4net" Version="2.0.15" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="content\config.install.xdt" />
     <None Remove="content\config.uninstall.xdt" />
-    <None Remove="StyleCop.Cache" />
   </ItemGroup>
 
   <ItemGroup Label="Packaging">

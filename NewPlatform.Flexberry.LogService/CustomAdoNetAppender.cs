@@ -175,7 +175,7 @@
             {
                 Key = GetCryptographicKeyBytes(useHashing),
                 Mode = CipherMode.ECB,
-                Padding = PaddingMode.PKCS7
+                Padding = PaddingMode.PKCS7,
             };
 
             return cryptographicServiceProvider;
