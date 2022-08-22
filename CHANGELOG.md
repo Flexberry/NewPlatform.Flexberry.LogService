@@ -11,6 +11,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+## [2.1.0] - 2022-08-20
+
+### Changed
+* upgrade `log4net` to version 2.0.15.
+
 ## [2.0.0] - 2021-01-25
 
 ### Added

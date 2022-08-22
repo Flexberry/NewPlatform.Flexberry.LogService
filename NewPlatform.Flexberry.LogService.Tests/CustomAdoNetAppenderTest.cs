@@ -15,7 +15,6 @@
         /// </summary>
         private const string ApplicationConnectionString = "SERVER=MyServer; TRUSTED_CONNECTION=no; DATABASE=MyDataBase; USER ID = MyUser; PASSWORD=MyPassword";
 
-
         /// <summary>
         /// Проверка логики шифрования и дешифрования.
         /// </summary>
