@@ -9,7 +9,7 @@ namespace ICSSoft.STORMNET.Controllers.Extensions
     /// <summary>
     /// Provides extension methods for <see cref="IRouteBuilder"/> to add OData Service file storage route.
     /// </summary>
-    public static class MapRouteBuilder
+    public static class MapRouteRouteBuilderExtensions
     {
         /// <summary>
         /// Maps the specified OData Service file storage route.

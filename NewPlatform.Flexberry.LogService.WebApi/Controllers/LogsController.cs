@@ -20,7 +20,7 @@
         /// <returns>Returns <c>true</c> if LogService write log<c>false</c> if error.</returns>
         [HttpPost]
         [ActionName("PostLog")]
-        public StatusCodeResult PostLog(LogRequest request)
+        public StatusCodeResult PostLog([FromBody] LogRequest request)
         {
             try
             {
