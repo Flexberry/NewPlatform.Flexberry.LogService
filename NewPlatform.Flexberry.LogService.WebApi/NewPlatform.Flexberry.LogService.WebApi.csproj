@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1;net45</TargetFrameworks>
     <RootNamespace>ICSSoft.STORMNET</RootNamespace>
     <AssemblyName>NewPlatform.Flexberry.LogService.WebApi</AssemblyName>
     <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.LogService.snk</AssemblyOriginatorKeyFile>
@@ -18,6 +18,9 @@
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^net\d'))">
+	  <DefineConstants>NETFRAMEWORK</DefineConstants>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net6.0'  Or '$(TargetFramework)' == 'net7.0' ">
     <!-- TODO: remove, fast hack. -->
     <DefineConstants>$(DefineConstants);NETSTANDARD</DefineConstants>
