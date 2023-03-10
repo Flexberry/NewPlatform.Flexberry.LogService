@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1;net45</TargetFrameworks>
     <RootNamespace>ICSSoft.STORMNET</RootNamespace>
     <AssemblyName>NewPlatform.Flexberry.LogService.WebApi</AssemblyName>
     <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.LogService.snk</AssemblyOriginatorKeyFile>
