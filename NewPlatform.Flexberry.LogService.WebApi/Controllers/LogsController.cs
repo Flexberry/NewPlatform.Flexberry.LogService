@@ -57,7 +57,7 @@
                         LogService.LogWarn(request.Message);
                         break;
                     case "error":
-                        LogService.LogDebug(request.Message);
+                        LogService.LogError(request.Message);
                         break;
                     default:
                         LogService.LogInfo(request.Message);
