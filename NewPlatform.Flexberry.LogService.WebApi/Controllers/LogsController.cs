@@ -1,6 +1,7 @@
 ﻿namespace ICSSoft.STORMNET.Controllers
 {
     using ICSSoft.STORMNET.RequestsObjects;
+    using Newtonsoft.Json;
 
 #if NETSTANDARD
     using Microsoft.AspNetCore.Mvc;
@@ -42,25 +43,28 @@
         public void PostLog([FromBody] LogRequest request)
 #endif
         {
+            var settings = new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore };
+            string msg = JsonConvert.SerializeObject(request, settings);
+
             try
             {
                 switch (request.Category.ToLower())
                 {
                     case "info":
-                        LogService.LogInfo(request.Message);
+                        LogService.LogInfo(msg);
                         break;
                     case "debug":
-                        LogService.LogDebug(request.Message);
+                        LogService.LogDebug(msg);
                         break;
                     case "warn":
                     case "warning":
-                        LogService.LogWarn(request.Message);
+                        LogService.LogWarn(msg);
                         break;
                     case "error":
-                        LogService.LogError(request.Message);
+                        LogService.LogError(msg);
                         break;
                     default:
-                        LogService.LogInfo(request.Message);
+                        LogService.LogInfo(msg);
                         break;
                 }
             }
