@@ -7,12 +7,12 @@ namespace ICSSoft.STORMNET.Controllers.Extensions
     using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
-    /// Provides extension methods for <see cref="IRouteBuilder"/> to add OData Service file storage route.
+    /// Provides extension methods for <see cref="IRouteBuilder"/> to add Log Service Web API route.
     /// </summary>
     public static class MapRouteRouteBuilderExtensions
     {
         /// <summary>
-        /// Maps the specified OData Service file storage route.
+        /// Maps the specified Log Service Web API route.
         /// </summary>
         /// <param name="builder">The <see cref="IRouteBuilder"/> to add the route to.</param>
         /// <param name="routeName">The name of the route to map.</param>
