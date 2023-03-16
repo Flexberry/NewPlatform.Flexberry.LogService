@@ -14,26 +14,38 @@ namespace ICSSoft.STORMNET.Controllers.Extensions
         /// </summary>
         /// <param name="config">The current HTTP configuration.</param>
         /// <param name="routeName">The name of the route.</param>
+        /// <param name="routeTemplate">The template of the route to map.</param>
         public static void MapLogControllerRoute(
             this HttpConfiguration config,
-            string routeName = "logs")
+            string routeName = "logs",
+            string routeTemplate = "api/logs")
         {
             if (config == null)
             {
-                throw new ArgumentNullException(nameof(config), "Contract assertion not met: config != null");
+                throw new ArgumentNullException(nameof(config), "Parameter requirement not met: config != null");
             }
 
             if (routeName == null)
             {
-                throw new ArgumentNullException(nameof(routeName), "Contract assertion not met: routeName != null");
+                throw new ArgumentNullException(nameof(routeName), "Parameter requirement not met: routeName != null");
             }
 
             if (routeName == string.Empty)
             {
-                throw new ArgumentException("Contract assertion not met: routeName != string.Empty", nameof(routeName));
+                throw new ArgumentException("Parameter requirement not met: routeName != string.Empty", nameof(routeName));
             }
 
-            config.Routes.MapHttpRoute(routeName, "api/logs", defaults: new { controller = "Logs", action = "PostLog" });
+            if (routeTemplate == null)
+            {
+                throw new ArgumentNullException(nameof(routeTemplate), "Parameter requirement not met: routeTemplate != null");
+            }
+
+            if (routeTemplate == string.Empty)
+            {
+                throw new ArgumentException("Parameter requirement not met: routeTemplate != string.Empty", nameof(routeTemplate));
+            }
+
+            config.Routes.MapHttpRoute(routeName, routeTemplate, defaults: new { controller = "Logs", action = "PostLog" });
         }
     }
 }

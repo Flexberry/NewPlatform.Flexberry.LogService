@@ -15,11 +15,9 @@
     /// WebAPI controller for Flexberry Log Service.
     /// </summary>
 #if NETSTANDARD
-    [Produces("application/json")]
     public class LogsController : ControllerBase
 #endif
 #if NETFRAMEWORK
-    [RoutePrefix("api/logs")]
     public class LogsController : ApiController
 #endif
     {
