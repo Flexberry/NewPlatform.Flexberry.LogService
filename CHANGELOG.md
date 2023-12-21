@@ -11,6 +11,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+## [2.2.0] - 2023-12-21
+
+### Changed
+* connection string may be read from `appsettings.json` in `.NET Standard 2.0` projects [#17](https://github.com/Flexberry/NewPlatform.Flexberry.LogService/pull/17)
+
 ## [2.1.0] - 2022-08-20
 
 ### Changed
