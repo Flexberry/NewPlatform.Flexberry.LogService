@@ -22,6 +22,12 @@
     <PackageReference Include="log4net" Version="2.0.15" />
   </ItemGroup>
 
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="8.0.0" />
+  </ItemGroup>
+
   <ItemGroup>
     <None Remove="content\config.install.xdt" />
     <None Remove="content\config.uninstall.xdt" />

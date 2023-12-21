@@ -16,7 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Open Source", "Open Source"
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewPlatform.Flexberry.LogService.WebApi", "NewPlatform.Flexberry.LogService.WebApi\NewPlatform.Flexberry.LogService.WebApi.csproj", "{CCFA55A9-295D-4497-9BE6-47EA45323EB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewPlatform.Flexberry.LogService.WebApi", "NewPlatform.Flexberry.LogService.WebApi\NewPlatform.Flexberry.LogService.WebApi.csproj", "{CCFA55A9-295D-4497-9BE6-47EA45323EB0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

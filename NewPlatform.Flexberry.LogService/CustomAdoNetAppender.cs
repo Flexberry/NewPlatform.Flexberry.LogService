@@ -1,8 +1,15 @@
 ﻿namespace ICSSoft.STORMNET
 {
+#if NETSTANDARD2_0_OR_GREATER
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Configuration.Json;
+#endif
     using System;
     using System.Collections.Specialized;
     using System.Configuration;
+#if NETSTANDARD2_0_OR_GREATER
+    using System.IO;
+#endif
     using System.Security.Cryptography;
     using System.Text;
 
@@ -17,6 +24,19 @@
     /// </remarks>
     public class CustomAdoNetAppender : AdoNetAppender
     {
+
+#if NETSTANDARD2_0_OR_GREATER
+        static CustomAdoNetAppender()
+        {
+            var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            appSettingsJson = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{envName}.json", true, true)
+                .Build();
+        }
+#endif
+
         /// <summary>
         /// Наименование настройки в секции appSettings, содержащей имя строки соединения из конфигурационной секции connectionStrings.
         /// </summary>
@@ -31,6 +51,18 @@
         /// Наименование настройки в секции appSettings, содержащей флаг, который показывает является ли строка соедиения зашифрованной.
         /// </summary>
         public const string AppSettingConnectionStringIsEncrypted = "Encrypted";
+
+#if NETSTANDARD2_0_OR_GREATER
+        /// <summary>
+        /// Параметры из файла конфигурации appsettings.json.
+        /// </summary>
+        private static IConfiguration appSettingsJson;
+#endif
+
+        /// <summary>
+        /// Конфигурационная секция appSettings из App.config.
+        /// </summary>
+        private readonly NameValueCollection appSettings = System.Configuration.ConfigurationManager.AppSettings;
 
         /// <summary>
         /// Строка соединения с базой данных.
@@ -66,45 +98,9 @@
         /// Осуществляет получение строки соединения из конфигурационного файла приложения.
         /// </summary>
         /// <returns>Полученная строка соединения.</returns>
-        /// <exception cref="ConfigurationErrorsException">
-        /// Выбрасывается, если не удалось получить строку соединения из конфигурационного файла приложения.
-        /// </exception>
-        private string GetConnectionStringFromConfiguration()
+        public string GetConnectionStringFromConfiguration()
         {
-            // Конфигурационная секция appSettings.
-            NameValueCollection appSettings = ConfigurationManager.AppSettings;
-
-            // Конфигурационная секция connectionStrings.
-            ConnectionStringSettingsCollection appConnectionStrings = ConfigurationManager.ConnectionStrings;
-
-            // Имя строки соединения в конфигурационной секции connectionStrings.
-            string connectionStringName = string.IsNullOrEmpty(ConnectionStringName)
-                ? appSettings[AppSettingConnectionStringName]
-                : ConnectionStringName;
-
-            // Собственно строка соединения.
-            string connectionString = null;
-            if (string.IsNullOrEmpty(connectionStringName))
-            {
-                connectionString = appSettings[AppSettingConnectionString];
-            }
-            else
-            {
-                ConnectionStringSettings connectionStringSettings = appConnectionStrings[connectionStringName];
-                if (connectionStringSettings != null)
-                {
-                    connectionString = connectionStringSettings.ConnectionString;
-                }
-            }
-
-            if (string.IsNullOrEmpty(connectionString))
-            {
-                throw new ConfigurationErrorsException(
-                    "Не удалось найти строку соединения в конфигурационном файле приложения. " +
-                    "Удостоверьтесь, что в секции \"appSettings\" задана настройка \"DefaultConnectionStringName\"," +
-                    " и ей соответствует корректная строка соединения в секции \"connectionStrings\", " +
-                    "либо удостоверьтесь, что в секции \"appSettings\" корректно задана настройка \"CustomizationStrings\"");
-            }
+            var connectionString = GetConnectionString(GetConnectionStringName());
 
             // Если в конфигурационном файле указано, что строка соединения зашифрована, то нужно её расшифровать.
             string appSettingConnectionStringIsEncrypted = appSettings[AppSettingConnectionStringIsEncrypted];
@@ -120,6 +116,58 @@
             }
 
             return connectionString;
+        }
+
+        /// <summary>
+        /// Получить строку соединения.
+        /// </summary>
+        /// <param name="connectionStringName">Название строки в разделе ConnectionStrings.</param>
+        /// <returns>Строка соединения.</returns>
+        /// <exception cref="ConfigurationErrorsException">
+        /// Выбрасывается, если не удалось получить строку соединения из конфигурационного файла приложения.
+        /// </exception>
+        private string GetConnectionString(string connectionStringName)
+        {
+            string connectionString = null;
+
+#if NETSTANDARD2_0_OR_GREATER
+            connectionString = appSettingsJson.GetConnectionString(connectionStringName);
+            if (connectionString != null) 
+            {
+                return connectionString;
+            }
+#endif
+            if (string.IsNullOrEmpty(connectionStringName))
+            {
+                connectionString = appSettings[AppSettingConnectionString];
+            }
+            else
+            {
+                ConnectionStringSettings connectionStringSettings = System.Configuration.ConfigurationManager.ConnectionStrings[connectionStringName];
+                if (connectionStringSettings != null)
+                {
+                    connectionString = connectionStringSettings.ConnectionString;
+                }
+            }
+
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new ConfigurationErrorsException(
+                    "Не удалось найти строку соединения в конфигурационном файле приложения. " +
+                    "Удостоверьтесь, что в секции \"appSettings\" задана настройка \"DefaultConnectionStringName\"," +
+                    " и ей соответствует корректная строка соединения в секции \"connectionStrings\", " +
+                    "либо удостоверьтесь, что в секции \"appSettings\" корректно задана настройка \"CustomizationStrings\"");
+            }
+
+            return connectionString;
+        }
+
+        private string GetConnectionStringName()
+        {
+            // Имя строки соединения в конфигурационной секции connectionStrings.
+            return string.IsNullOrEmpty(ConnectionStringName)
+                ? appSettings[AppSettingConnectionStringName]
+                : ConnectionStringName;
         }
 
         /// <summary>
