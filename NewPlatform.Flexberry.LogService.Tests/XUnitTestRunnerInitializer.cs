@@ -2,7 +2,9 @@
 
 namespace NewPlatform.Flexberry.LogService.Tests
 {
-#if NETCORE
+#if NETCOREAPP
+    using log4net;
+    using log4net.Config;
     using System.Configuration;
     using System.IO;
     using System.Reflection;
@@ -22,10 +24,14 @@ namespace NewPlatform.Flexberry.LogService.Tests
         public XUnitTestRunnerInitializer(IMessageSink messageSink)
             : base(messageSink)
         {
-#if NETCORE
+#if NETCOREAPP
             string configFile = $"{Assembly.GetExecutingAssembly().Location}.config";
             string outputConfigFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath;
             File.Copy(configFile, outputConfigFile, true);
+            
+            // Init logging using correct configuration file:
+            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            XmlConfigurator.Configure(logRepository, new FileInfo(outputConfigFile));
 #endif
         }
     }
