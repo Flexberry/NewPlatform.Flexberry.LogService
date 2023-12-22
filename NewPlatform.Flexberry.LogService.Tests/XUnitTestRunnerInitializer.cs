@@ -2,12 +2,13 @@
 
 namespace NewPlatform.Flexberry.LogService.Tests
 {
-#if NETCOREAPP
-    using log4net;
-    using log4net.Config;
-    using System.Configuration;
+    using System;
     using System.IO;
     using System.Reflection;
+#if NETCOREAPP
+    using System.Configuration;
+    using log4net;
+    using log4net.Config;
 #endif
     using Xunit.Abstractions;
     using Xunit.Sdk;
@@ -25,14 +26,20 @@ namespace NewPlatform.Flexberry.LogService.Tests
             : base(messageSink)
         {
 #if NETCOREAPP
+            // Copy App.config into testhost.dll.config:
             string configFile = $"{Assembly.GetExecutingAssembly().Location}.config";
             string outputConfigFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None).FilePath;
             File.Copy(configFile, outputConfigFile, true);
-            
-            // Init logging using correct configuration file:
+
+            // Refresh log4net configuration:
             var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
             XmlConfigurator.Configure(logRepository, new FileInfo(outputConfigFile));
 #endif
+
+            // Copy other test configurations from Log4net.Configs folder:
+            string entryAssemblyPath = AppDomain.CurrentDomain.BaseDirectory;
+            string exeAssemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            Utils.CopyFilesRecursively(Path.Combine(entryAssemblyPath, "Log4net.Configs"), exeAssemblyPath);
         }
     }
 }
