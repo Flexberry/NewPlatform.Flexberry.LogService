@@ -7,10 +7,12 @@
     using System;
     using System.Collections.Specialized;
     using System.Configuration;
+    using System.IO;
 #if NETSTANDARD2_0_OR_GREATER
     using System.IO;
 #endif
     using System.Security.Cryptography;
+    using System.Security.Policy;
     using System.Text;
 
     using log4net.Appender;
@@ -26,11 +28,15 @@
     {
 
 #if NETSTANDARD2_0_OR_GREATER
+        /// <summary>
+        /// Конструктор, который загружает настройки в appSettingsJson при первом обращении к CustomAdoNetAppender.
+        /// </summary>
         static CustomAdoNetAppender()
         {
+            var currentDirectory = Directory.GetCurrentDirectory();
             var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             appSettingsJson = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(currentDirectory)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{envName}.json", true, true)
                 .Build();
@@ -40,7 +46,7 @@
         /// <summary>
         /// Наименование настройки в секции appSettings, содержащей имя строки соединения из конфигурационной секции connectionStrings.
         /// </summary>
-        public const string AppSettingConnectionStringName = "DefaultConnectionStringName";
+        public const string DefaultConnectionStringNameSetting = "DefaultConnectionStringName";
 
         /// <summary>
         /// Наименование настройки в секции appSettings, содержащей строку соединения.
@@ -48,9 +54,16 @@
         public const string AppSettingConnectionString = "CustomizationStrings";
 
         /// <summary>
-        /// Наименование настройки в секции appSettings, содержащей флаг, который показывает является ли строка соедиения зашифрованной.
+        /// Настройка - является ли строка соедиения зашифрованной.
         /// </summary>
-        public const string AppSettingConnectionStringIsEncrypted = "Encrypted";
+        public bool IsConnectionStringEncrypted => bool.Parse(AppSettings["Encrypted"] ?? "false");
+
+        /// <summary>
+        /// Наименование строки соединения. Улучшенный вариант, позволяющий задать DefaultConnectionStringName и использовать параметр "CustomizationStrings" если ничего не задано.
+        /// </summary>
+        public string CustomConnectionStringName => ConnectionStringName.NullIfEmpty() ??
+                                                    AppSettings[DefaultConnectionStringNameSetting].NullIfEmpty() ??
+                                                    AppSettingConnectionString.NullIfEmpty();
 
 #if NETSTANDARD2_0_OR_GREATER
         /// <summary>
@@ -62,37 +75,7 @@
         /// <summary>
         /// Конфигурационная секция appSettings из App.config.
         /// </summary>
-        private readonly NameValueCollection appSettings = System.Configuration.ConfigurationManager.AppSettings;
-
-        /// <summary>
-        /// Строка соединения с базой данных.
-        /// </summary>
-        private string _connectionString;
-
-        /// <summary>
-        /// Получает или задает строку соединения с базой данных.
-        /// </summary>
-        /// <remarks>
-        /// Переопределяет свойство базового класса, чтобы выполнить собственную логику получения строки соединения.
-        /// Так как в базовом классе методы get и set не содержат логики, то это вполне безопасно.
-        /// </remarks>
-        public new string ConnectionString
-        {
-            get
-            {
-                if (_connectionString == null)
-                {
-                    _connectionString = GetConnectionStringFromConfiguration();
-                }
-
-                return _connectionString;
-            }
-
-            set
-            {
-                _connectionString = value;
-            }
-        }
+        private NameValueCollection AppSettings => System.Configuration.ConfigurationManager.AppSettings;
 
         /// <summary>
         /// Осуществляет получение строки соединения из конфигурационного файла приложения.
@@ -100,22 +83,28 @@
         /// <returns>Полученная строка соединения.</returns>
         public string GetConnectionStringFromConfiguration()
         {
-            var connectionString = GetConnectionString(GetConnectionStringName());
+            var connectionString = GetConnectionString(CustomConnectionStringName);
 
             // Если в конфигурационном файле указано, что строка соединения зашифрована, то нужно её расшифровать.
-            string appSettingConnectionStringIsEncrypted = appSettings[AppSettingConnectionStringIsEncrypted];
-            if (!string.IsNullOrEmpty(appSettingConnectionStringIsEncrypted))
-            {
-                appSettingConnectionStringIsEncrypted = appSettingConnectionStringIsEncrypted.ToLower();
-            }
-
-            bool connectionStringIsEncrypted = appSettingConnectionStringIsEncrypted == true.ToString().ToLower();
-            if (connectionStringIsEncrypted)
+            if (IsConnectionStringEncrypted)
             {
                 connectionString = DecryptString(connectionString, true);
             }
 
             return connectionString;
+        }
+
+        /// <inheritdoc/>
+        protected override string ResolveConnectionString(out string connectionStringContext)
+        {
+            if (!string.IsNullOrEmpty(ConnectionString))
+            {
+                connectionStringContext = "ConnectionString";
+                return ConnectionString;
+            }
+
+            connectionStringContext = CustomConnectionStringName;
+            return GetConnectionStringFromConfiguration();
         }
 
         /// <summary>
@@ -132,42 +121,29 @@
 
 #if NETSTANDARD2_0_OR_GREATER
             connectionString = appSettingsJson.GetConnectionString(connectionStringName);
-            if (connectionString != null) 
+            if (connectionString != null)
             {
                 return connectionString;
             }
 #endif
-            if (string.IsNullOrEmpty(connectionStringName))
+
+            connectionString = System.Configuration.ConfigurationManager.ConnectionStrings[connectionStringName]?.ConnectionString;
+            if (connectionString == null)
             {
-                connectionString = appSettings[AppSettingConnectionString];
-            }
-            else
-            {
-                ConnectionStringSettings connectionStringSettings = System.Configuration.ConfigurationManager.ConnectionStrings[connectionStringName];
-                if (connectionStringSettings != null)
-                {
-                    connectionString = connectionStringSettings.ConnectionString;
-                }
+                connectionString = AppSettings[connectionStringName];
             }
 
             if (string.IsNullOrEmpty(connectionString))
             {
                 throw new ConfigurationErrorsException(
                     "Не удалось найти строку соединения в конфигурационном файле приложения. " +
-                    "Удостоверьтесь, что в секции \"appSettings\" задана настройка \"DefaultConnectionStringName\"," +
+                    "Удостоверьтесь, что в AdoNetAppender передаётся параметр \"ConnectionStringName\". Если он не указан, " +
+                    "удостоверьтесь, что в секции \"appSettings\" задана настройка \"DefaultConnectionStringName\"," +
                     " и ей соответствует корректная строка соединения в секции \"connectionStrings\", " +
                     "либо удостоверьтесь, что в секции \"appSettings\" корректно задана настройка \"CustomizationStrings\"");
             }
 
             return connectionString;
-        }
-
-        private string GetConnectionStringName()
-        {
-            // Имя строки соединения в конфигурационной секции connectionStrings.
-            return string.IsNullOrEmpty(ConnectionStringName)
-                ? appSettings[AppSettingConnectionStringName]
-                : ConnectionStringName;
         }
 
         /// <summary>

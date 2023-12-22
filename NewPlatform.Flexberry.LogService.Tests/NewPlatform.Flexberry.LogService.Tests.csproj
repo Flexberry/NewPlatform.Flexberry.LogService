@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net461;netcoreapp3.1;net7.0</TargetFrameworks>
     <RootNamespace>NewPlatform.Flexberry.LogService.Tests</RootNamespace>
     <AssemblyName>NewPlatform.Flexberry.LogService.Tests</AssemblyName>
     <AssemblyOriginatorKeyFile>NewPlatform.Flexberry.LogService.Tests.snk</AssemblyOriginatorKeyFile>
@@ -19,7 +19,7 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' Or '$(TargetFramework)' == 'net7.0' ">
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.0" />
   </ItemGroup>
 
@@ -28,10 +28,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="App.config">
+    <None Update="Log4net.Configs\App.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Log4net.Configs\App.customizationstrings.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Log4net.Configs\App.defconnstr.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
