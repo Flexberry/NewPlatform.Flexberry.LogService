@@ -27,12 +27,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
-
-      - name: Install .NET 10.0
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 10.0.x
-        
+      
       - name: NuGet Restore
         run: dotnet restore "NewPlatform.Flexberry.LogService.LogService.sln"
         
@@ -40,7 +35,7 @@ jobs:
         run: nuget install xunit.runner.console -Version $XUNIT_RUNNER -OutputDirectory testrunner
         
       - name: Compile code
-        run:  msbuild /verbosity:quiet /p:WarningLevel=0 /p:Configuration=Debug "NewPlatform.Flexberry.LogService.LogService.sln" 
+        run:  dotnet build --no-restore -v q /p:WarningLevel=0 -c Debug "NewPlatform.Flexberry.LogService.LogService.sln" 
 
       - name: Test under mono
         run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.LogService.Tests/bin/Debug/net461/NewPlatform.Flexberry.LogService.Tests.dll
