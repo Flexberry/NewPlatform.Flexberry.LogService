@@ -11,6 +11,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+## [2.3.0] - 2025-11-25
+
+### Added
+* Added support of .NET10.
+
 ## [2.2.1] - 2023-12-22
 
 ### Changed
