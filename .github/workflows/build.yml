@@ -27,6 +27,11 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
+
+      - name: Install .NET 10.0
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
         
       - name: NuGet Restore
         run: dotnet restore "NewPlatform.Flexberry.LogService.LogService.sln"
