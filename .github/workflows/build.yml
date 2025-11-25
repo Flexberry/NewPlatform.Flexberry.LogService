@@ -47,9 +47,6 @@ jobs:
       - name: Compile code
         run:  dotnet build --no-restore -v q /p:WarningLevel=0 -c Debug "NewPlatform.Flexberry.LogService.LogService.sln" 
 
-      - name: Integration test under dotnet core
-        run: dotnet test ./NewPlatform.Flexberry.LogService.Tests/bin/Debug/netcoreapp3.1/NewPlatform.Flexberry.LogService.Tests.dll
-
       - name: Integration test under net 10
         run: dotnet test ./NewPlatform.Flexberry.LogService.Tests/bin/Debug/net10.0/NewPlatform.Flexberry.LogService.Tests.dll
 
