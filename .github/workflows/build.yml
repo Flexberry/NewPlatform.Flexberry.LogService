@@ -49,17 +49,17 @@ jobs:
 
       - name: Run ReadConnectionStringTest under Mono
         run: |
-          cp ./NewPlatform.Flexberry.LogService.Tests/App.config ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe.config
+          cp ./NewPlatform.Flexberry.LogService.Tests/Log4net.Configs/App.config ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe.config
           mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.LogService.Tests/bin/Debug/net461/NewPlatform.Flexberry.LogService.Tests.dll -method "NewPlatform.Flexberry.LogService.Tests.CustomAdoNetAppenderTest.ReadConnectionStringTest"
 
       - name: Run ReadDefaultConnectionStringTest under Mono
         run: |
-          cp ./NewPlatform.Flexberry.LogService.Tests/App.defconnstr.config ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe.config
+          cp ./NewPlatform.Flexberry.LogService.Tests/Log4net.Configs/App.defconnstr.config ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe.config
           mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.LogService.Tests/bin/Debug/net461/NewPlatform.Flexberry.LogService.Tests.dll -method "NewPlatform.Flexberry.LogService.Tests.CustomAdoNetAppenderTest.ReadDefaultConnectionStringTest"
 
       - name: Run ReadCustomizationStringsTest under Mono
         run: |
-          cp ./NewPlatform.Flexberry.LogService.Tests/App.customizationstrings.config ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe.config
+          cp ./NewPlatform.Flexberry.LogService.Tests/Log4net.Configs/App.customizationstrings.config ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe.config
           mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.LogService.Tests/bin/Debug/net461/NewPlatform.Flexberry.LogService.Tests.dll -method "NewPlatform.Flexberry.LogService.Tests.CustomAdoNetAppenderTest.ReadCustomizationStringsTest"
 
         
