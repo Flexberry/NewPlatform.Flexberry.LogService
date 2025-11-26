@@ -28,16 +28,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-      - name: Install Mono ${{ env.MONO_VERSION }}
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y gnupg ca-certificates
-          sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
-          echo "deb https://download.mono-project.com/repo/ubuntu stable-focal/snapshots/${MONO_VERSION} main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
-          sudo apt-get update
-          sudo apt-get install -y mono-complete mono-devel
-          mono --version
-
       - name: NuGet Restore
         run: dotnet restore "NewPlatform.Flexberry.LogService.LogService.sln"
         
@@ -53,7 +43,23 @@ jobs:
       - name: Wait before mono tests (to reduce SIGSEGV risk)
         run: sleep 15
 
-      - name: Test under mono
-        run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.LogService.Tests/bin/Debug/net461/NewPlatform.Flexberry.LogService.Tests.dll
+      # В моно есть специфика работы с конфигом, поэтому так просто тесты не отрабатывают.
+      - name: Run ReadConnectionStringTest under Mono
+        run: mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.LogService.Tests/bin/Debug/net461/NewPlatform.Flexberry.LogService.Tests.dll -method "NewPlatform.Flexberry.LogService.Tests.CustomAdoNetAppenderTest.EncryptDecryptConnectionStringInAppender"
+
+      - name: Run ReadConnectionStringTest under Mono
+        run: |
+          cp ./NewPlatform.Flexberry.LogService.Tests/App.config ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe.config
+          mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.LogService.Tests/bin/Debug/net461/NewPlatform.Flexberry.LogService.Tests.dll -method "NewPlatform.Flexberry.LogService.Tests.CustomAdoNetAppenderTest.ReadConnectionStringTest"
+
+      - name: Run ReadDefaultConnectionStringTest under Mono
+        run: |
+          cp ./NewPlatform.Flexberry.LogService.Tests/App.defconnstr.config ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe.config
+          mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.LogService.Tests/bin/Debug/net461/NewPlatform.Flexberry.LogService.Tests.dll -method "NewPlatform.Flexberry.LogService.Tests.CustomAdoNetAppenderTest.ReadDefaultConnectionStringTest"
+
+      - name: Run ReadCustomizationStringsTest under Mono
+        run: |
+          cp ./NewPlatform.Flexberry.LogService.Tests/App.customizationstrings.config ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe.config
+          mono ./testrunner/xunit.runner.console.$XUNIT_RUNNER/tools/net461/xunit.console.exe ./NewPlatform.Flexberry.LogService.Tests/bin/Debug/net461/NewPlatform.Flexberry.LogService.Tests.dll -method "NewPlatform.Flexberry.LogService.Tests.CustomAdoNetAppenderTest.ReadCustomizationStringsTest"
 
         
