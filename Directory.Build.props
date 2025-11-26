@@ -2,9 +2,9 @@
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Authors>New Platform Ltd.</Authors>
-    <Copyright>Copyright 2017-2022 © New Platform Ltd.</Copyright>
+    <Copyright>Copyright 2017-2025 © New Platform Ltd.</Copyright>
     <Company>New Platform Ltd.</Company>
-    <VersionPrefix>2.2.1</VersionPrefix>
+    <VersionPrefix>2.3.0</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <PackageProjectUrl>https://flexberry.net</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>

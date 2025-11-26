@@ -52,7 +52,7 @@
 
             // Assert
             Assert.NotNull(connStr);
-#if NETCOREAPP
+#if NETSTANDARD2_0_OR_GREATER
             Assert.DoesNotContain("SERVER=app.config.string", connStr);
 #else
             Assert.Contains("SERVER=app.config.string", connStr);
